@@ -8,5 +8,7 @@ namespace CenterManagement.Models.Entities
 {
     internal class Roles
     {
+        
+
     }
 }
