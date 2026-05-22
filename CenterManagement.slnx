@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CenterManagement.API/CenterManagement.API.csproj" />
+  <Project Path="CenterManagement.DataAccess/CenterManagement.DataAccess.csproj" />
+  <Project Path="CenterManagement.Models/CenterManagement.Models.csproj" />
+  <Project Path="CenterManagement.WinForms/CenterManagement.WinForms.csproj" />
+</Solution>
