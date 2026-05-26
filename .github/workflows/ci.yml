@@ -20,14 +20,15 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore CenterManagement.sln
+        run: dotnet restore CenterManagement.Tests/CenterManagement.Tests.csproj
 
       - name: Build
-        run: dotnet build CenterManagement.sln --no-restore --configuration Release
+        run: dotnet build CenterManagement.Tests/CenterManagement.Tests.csproj --no-restore --configuration Release
 
       - name: Run Unit Tests with Coverage
         run: |
-          dotnet test CenterManagement.sln --no-build --configuration Release \
+          dotnet test CenterManagement.Tests/CenterManagement.Tests.csproj \
+                      --no-build --configuration Release \
                       --verbosity normal \
                       --collect:"XPlat Code Coverage" \
                       --results-directory ./coverage
