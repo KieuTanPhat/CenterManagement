@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="CenterManagement.API/CenterManagement.API.csproj" Id="1b159e34-bba3-4fa7-b920-d3b9a653c629" />
+  <Project Path="CenterManagement.DataAccess/CenterManagement.DataAccess.csproj" />
+  <Project Path="CenterManagement.Models/CenterManagement.Models.csproj" />
+  <Project Path="CenterManagement.Tests/CenterManagement.Tests.csproj" />
+  <Project Path="CenterManagement.WinForms/CenterManagement.WinForms.csproj" />
+</Solution>

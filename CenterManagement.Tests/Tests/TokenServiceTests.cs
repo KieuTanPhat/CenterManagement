@@ -175,7 +175,6 @@ namespace CenterManagement.Tests.Services
         [Fact]
         public void GetPrincipalFromExpiredToken_WithTamperedToken_ShouldThrowException()
         {
-            // Arrange
             var token = _tokenService.GenerateAccessToken(1, "Test", "test", 1);
             var tampered = token.Substring(0, token.Length - 5) + "xxxxx";
 

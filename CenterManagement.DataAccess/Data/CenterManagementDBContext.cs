@@ -28,6 +28,9 @@ namespace CenterManagement.DataAccess.Data
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ExamResult> ExamResults { get; set; }
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,10 +76,30 @@ namespace CenterManagement.DataAccess.Data
                 e.HasKey(em => em.Id);
                 e.HasIndex(em => em.UserId).IsUnique();
                 e.Property(em => em.Position).HasMaxLength(100);
+                e.Property(em => em.Department).HasMaxLength(100);
+                e.Property(em => em.ContractType).HasMaxLength(100);
+                e.Property(em => em.NationalId).HasMaxLength(20);
+                e.Property(em => em.Address).HasMaxLength(500);
+                e.Property(em => em.District).HasMaxLength(100);
+                e.Property(em => em.City).HasMaxLength(100);
+                e.Property(em => em.Education).HasMaxLength(200);
+                e.Property(em => em.Major).HasMaxLength(200);
+                e.Property(em => em.EmergencyContact).HasMaxLength(200);
+                e.Property(em => em.EmergencyPhone).HasMaxLength(20);
+                e.Property(em => em.EmergencyRelationship).HasMaxLength(100);
+                e.Property(em => em.BankAccount).HasMaxLength(50);
+                e.Property(em => em.BankAccountName).HasMaxLength(200);
+                e.Property(em => em.BankName).HasMaxLength(200);
+                e.Property(em => em.TaxId).HasMaxLength(20);
+                e.Property(em => em.Salary).HasColumnType("decimal(18,2)");
                 e.HasOne(em => em.User)
                  .WithOne(u => u.Employee)
                  .HasForeignKey<Employee>(em => em.UserId)
                  .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(em => em.Branch)
+                 .WithMany()
+                 .HasForeignKey(em => em.BranchId)
+                 .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Teacher>(e =>
@@ -84,6 +107,19 @@ namespace CenterManagement.DataAccess.Data
                 e.HasKey(t => t.Id);
                 e.HasIndex(t => t.UserId).IsUnique();
                 e.Property(t => t.Specialization).HasMaxLength(200);
+                e.Property(t => t.Qualification).HasMaxLength(200);
+                e.Property(t => t.Certificates).HasMaxLength(500);
+                e.Property(t => t.Biography).HasMaxLength(1000);
+                e.Property(t => t.NationalId).HasMaxLength(20);
+                e.Property(t => t.Gender).HasMaxLength(10);
+                e.Property(t => t.Address).HasMaxLength(500);
+                e.Property(t => t.District).HasMaxLength(100);
+                e.Property(t => t.City).HasMaxLength(100);
+                e.Property(t => t.BankAccount).HasMaxLength(50);
+                e.Property(t => t.BankAccountName).HasMaxLength(200);
+                e.Property(t => t.BankName).HasMaxLength(200);
+                e.Property(t => t.TaxId).HasMaxLength(20);
+                e.Property(t => t.ContractType).HasMaxLength(100);
                 e.HasOne(t => t.User)
                  .WithOne(u => u.Teacher)
                  .HasForeignKey<Teacher>(t => t.UserId)
@@ -130,6 +166,8 @@ namespace CenterManagement.DataAccess.Data
                 e.Property(c => c.CourseCode).HasMaxLength(20);
                 e.Property(c => c.Description).HasMaxLength(1000);
                 e.Property(c => c.TuitionFee).HasColumnType("decimal(18,2)");
+                e.Property(c => c.ExamFee).HasColumnType("decimal(18,2)");
+                e.Property(c => c.TargetScore).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Class>(e =>
@@ -267,6 +305,59 @@ namespace CenterManagement.DataAccess.Data
                 e.HasOne(er => er.Student)
                  .WithMany(s => s.ExamResults)
                  .HasForeignKey(er => er.StudentId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<LeaveRequest>(e =>
+            {
+                e.HasKey(lr => lr.Id);
+                e.Property(lr => lr.Reason).HasMaxLength(500);
+                e.Property(lr => lr.Status).IsRequired();
+                e.Property(lr => lr.PenaltyAmount).HasColumnType("decimal(18,2)");
+                e.HasOne(lr => lr.Teacher)
+                 .WithMany(t => t.LeaveRequests)
+                 .HasForeignKey(lr => lr.TeacherId)
+                 .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(lr => lr.Class)
+                 .WithMany(c => c.LeaveRequests)
+                 .HasForeignKey(lr => lr.ClassId)
+                 .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(lr => lr.Schedule)
+                 .WithMany()
+                 .HasForeignKey(lr => lr.ScheduleId)
+                 .OnDelete(DeleteBehavior.Restrict);
+                e.HasOne(lr => lr.ApprovedBy)
+                 .WithMany()
+                 .HasForeignKey(lr => lr.ApprovedByUserId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Notification>(e =>
+            {
+                e.HasKey(n => n.Id);
+                e.Property(n => n.Title).HasMaxLength(200).IsRequired();
+                e.Property(n => n.Message).HasMaxLength(2000).IsRequired();
+                e.Property(n => n.NotificationType).HasMaxLength(50);
+                e.HasOne(n => n.TargetUser)
+                 .WithMany()
+                 .HasForeignKey(n => n.TargetUserId)
+                 .OnDelete(DeleteBehavior.SetNull);
+                e.HasOne(n => n.CreatedBy)
+                 .WithMany()
+                 .HasForeignKey(n => n.CreatedByUserId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<AuditLog>(e =>
+            {
+                e.HasKey(a => a.Id);
+                e.Property(a => a.Action).HasMaxLength(100).IsRequired();
+                e.Property(a => a.EntityName).HasMaxLength(100).IsRequired();
+                e.Property(a => a.UserName).HasMaxLength(100).IsRequired();
+                e.Property(a => a.Description).HasMaxLength(500);
+                e.HasOne(a => a.User)
+                 .WithMany()
+                 .HasForeignKey(a => a.UserId)
                  .OnDelete(DeleteBehavior.Restrict);
             });
 

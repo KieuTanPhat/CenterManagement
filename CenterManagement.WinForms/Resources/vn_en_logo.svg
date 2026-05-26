@@ -1,0 +1,71 @@
+<svg width="680" height="680" viewBox="0 0 680 680" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Logo VN-EN English Center</title>
+
+  <defs>
+    <mask id="text-gaps" maskUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="680" height="680" fill="white"/>
+      <rect x="171.076" y="97.817" width="337.799" height="88.470" fill="black" rx="2"/>
+      <rect x="219.525" y="488.807" width="240.953" height="57.414" fill="black" rx="2"/>
+      <rect x="200.859" y="267.266" width="277.281" height="119" fill="black" rx="2"/>
+      <rect x="278.891" y="424.891" width="122.219" height="21" fill="black" rx="2"/>
+    </mask>
+  </defs>
+
+  <g transform="translate(340,340)">
+
+    <!-- Outer red circle -->
+    <circle r="290" fill="rgb(200,16,46)"/>
+
+    <!-- White ring gap -->
+    <circle r="268" fill="rgb(255,255,255)"/>
+
+    <!-- Thin red decorative ring -->
+    <circle r="258" fill="none" stroke="#C8102E" stroke-width="2"/>
+
+    <!-- Inner red center -->
+    <circle r="248" fill="rgb(200,16,46)"/>
+
+    <!-- Subtle inner border -->
+    <circle r="248" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+    <!-- Top arc text: TRUNG TÂM TIẾNG ANH -->
+    <path id="topArc" d="M -220,0 A 220,220 0 0,1 220,0" fill="none" mask="url(#text-gaps)"/>
+    <text font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="white">
+      <textPath href="#topArc" startOffset="50%" text-anchor="middle">TRUNG TÂM TIẾNG ANH</textPath>
+    </text>
+
+    <!-- Bottom arc text: ENGLISH CENTER -->
+    <path id="botArc" d="M -200,0 A 200,200 0 0,0 200,0" fill="none" mask="url(#text-gaps)"/>
+    <text font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="6" fill="white">
+      <textPath href="#botArc" startOffset="50%" text-anchor="middle">ENGLISH CENTER</textPath>
+    </text>
+
+    <!-- Horizontal divider lines -->
+    <line x1="-170" y1="-62" x2="170" y2="-62" mask="url(#text-gaps)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+    <line x1="-170" y1="72"  x2="170" y2="72"  stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+
+    <!-- Small dots on dividers -->
+    <circle cx="-170" cy="-62" r="3" fill="white"/>
+    <circle cx="170"  cy="-62" r="3" fill="white"/>
+    <circle cx="-170" cy="72"  r="3" fill="white"/>
+    <circle cx="170"  cy="72"  r="3" fill="white"/>
+
+    <!-- Main brand text VN-EN -->
+    <text text-anchor="middle" dominant-baseline="middle" y="-2"
+          font-family="Arial Black, Arial, sans-serif" font-size="82" font-weight="900" fill="white">
+      VN<tspan font-family="Arial, sans-serif" font-size="56" font-weight="300" fill="rgba(255,255,255,0.6)">-</tspan>EN
+    </text>
+
+    <!-- Sub label EST. 2024 -->
+    <text text-anchor="middle" dominant-baseline="middle" y="97"
+          font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="rgba(255,255,255,0.85)">
+      EST. 2024
+    </text>
+
+    <!-- Diamond accents -->
+    <polygon points="0,-288 4,-282 0,-276 -4,-282" fill="white" opacity="0.9"/>
+    <polygon points="-204,-204 -199,-198 -204,-192 -209,-198" fill="white" opacity="0.6"/>
+    <polygon points="204,-204 209,-198 204,-192 199,-198" fill="white" opacity="0.6"/>
+
+  </g>
+</svg>

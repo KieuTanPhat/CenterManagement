@@ -34,6 +34,12 @@ namespace CenterManagement.API.Controllers
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return Unauthorized("Sai tài khoản hoặc mật khẩu");
 
+            if (!user.IsActive)
+                return Unauthorized("Tài khoản đã bị khóa");
+
+            if (user.RoleId is < 1 or > 4)
+                return Unauthorized("Học viên không được đăng nhập hệ thống quản trị");
+
             var refreshToken = _tokenService.GenerateRefreshToken();
             var accessToken = _tokenService.GenerateAccessToken(user.Id, user.FullName, user.UserName, user.RoleId);
             var refreshTokenEntity = new RefreshToken
@@ -128,6 +134,9 @@ namespace CenterManagement.API.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
+            if (dto.RoleId is < 1 or > 4)
+                return BadRequest("Chỉ cho phép tạo tài khoản quản trị, quản lý, nhân viên hoặc giáo viên");
+
             var checkUserName = await _context.Users
                 .FirstOrDefaultAsync(u => u.UserName == dto.Username);
 
@@ -143,11 +152,14 @@ namespace CenterManagement.API.Controllers
                 Email = dto.Email,
                 FullName = dto.FullName,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                RoleId = 2,
+                RoleId = dto.RoleId,
                 IsActive = true
             });
+            var rolename = await _context.Roles
+                .Where(r => r.Id == dto.RoleId).Select(r => r.RoleName)
+                .FirstOrDefaultAsync();
             await _context.SaveChangesAsync();
-            return Ok("Đăng ký thành công");
+            return Ok(new { message = "Đăng ký thành công", role = rolename });
         }
     }
 }

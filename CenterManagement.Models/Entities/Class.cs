@@ -20,5 +20,6 @@ namespace CenterManagement.Models.Entities
         public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
         public ICollection<ClassTransfer> ClassTransfers { get; set; } = new List<ClassTransfer>();
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
+        public ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
     }
 }

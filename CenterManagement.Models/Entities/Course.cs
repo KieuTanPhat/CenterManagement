@@ -12,6 +12,10 @@ namespace CenterManagement.Models.Entities
         public decimal? TuitionFee { get; set; }
         public int? DurationWeeks { get; set; }
         public bool IsActive { get; set; } = true;
+        public decimal? ExamFee { get; set; }
+        public string? TargetScore { get; set; }
+        public int MinStudents { get; set; } = 0;
+        public int MaxStudents { get; set; } = 30;
 
         public ICollection<Class> Classes { get; set; } = new List<Class>();
     }
