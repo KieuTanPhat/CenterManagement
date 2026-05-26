@@ -1,35 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace CenterManagement.DataAccess;
-
-public partial class Student
+namespace CenterManagement.Models.Entities
 {
-    public int Id { get; set; }
+    public class Student : BaseEntity
+    {
+        public int Id { get; set; }
+        public string StudentCode { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
+        public string? ParentName { get; set; }
+        public string? ParentPhone { get; set; }
 
-    public string FullName { get; set; } = null!;
-
-    public string Phone { get; set; } = null!;
-
-    public string? Email { get; set; }
-
-    public DateOnly? DateOfBirth { get; set; }
-
-    public string? Address { get; set; }
-
-    public int? LeadId { get; set; }
-
-    public int BranchId { get; set; }
-
-    public bool IsActive { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public virtual Branch Branch { get; set; } = null!;
-
-    public virtual ICollection<ClassStudent> ClassStudents { get; set; } = new List<ClassStudent>();
-
-    public virtual Lead? Lead { get; set; }
-
-    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        public ICollection<ClassTransfer> ClassTransfers { get; set; } = new List<ClassTransfer>();
+        public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
+        public ICollection<ExamResult> ExamResults { get; set; } = new List<ExamResult>();
+    }
 }

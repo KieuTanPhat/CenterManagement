@@ -1,31 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CenterManagement.DataAccess;
-
-public partial class Branch
+namespace CenterManagement.Models.Entities
 {
-    public int Id { get; set; }
+    public class Branch
+    {
+        public int Id { get; set; }
+        public string BranchName { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public bool IsActive { get; set; } = false;
 
-    public string BranchName { get; set; } = null!;
-
-    public string? Address { get; set; }
-
-    public string? Phone { get; set; }
-
-    public bool IsActive { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
-
-    public virtual ICollection<Lead> Leads { get; set; } = new List<Lead>();
-
-    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
-
-    public virtual ICollection<Student> Students { get; set; } = new List<Student>();
-
-    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Room> Rooms { get; set; } = new List<Room>();
+    }
 }
