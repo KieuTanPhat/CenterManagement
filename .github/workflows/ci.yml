@@ -17,17 +17,17 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.420'
+          dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore CenterManagement.slnx
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build CenterManagement.slnx --no-restore --configuration Release
 
       - name: Run Unit Tests with Coverage
         run: |
-          dotnet test --no-build --configuration Release \
+          dotnet test CenterManagement.slnx --no-build --configuration Release \
                       --verbosity normal \
                       --collect:"XPlat Code Coverage" \
                       --results-directory ./coverage
