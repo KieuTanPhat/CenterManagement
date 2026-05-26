@@ -1,37 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CenterManagement.DataAccess;
-
-public partial class User
+namespace CenterManagement.Models.Entities
 {
-    public int Id { get; set; }
+    public class User : BaseEntity
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
+        public int RoleId { get; set; }
+        public bool IsActive { get; set; } = true;
 
-    public string Username { get; set; } = null!;
+        public Role Role { get; set; } = null!;
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+        public Employee? Employee { get; set; }
+        public Teacher? Teacher { get; set; }
+    }
 
-    public string PasswordHash { get; set; } = null!;
-
-    public string FullName { get; set; } = null!;
-
-    public string? Email { get; set; }
-
-    public string? Phone { get; set; }
-
-    public int RoleId { get; set; }
-
-    public int? BranchId { get; set; }
-
-    public bool IsActive { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public virtual Branch? Branch { get; set; }
-
-    public virtual ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
-
-    public virtual ICollection<Lead> Leads { get; set; } = new List<Lead>();
-
-    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
-
-    public virtual Role Role { get; set; } = null!;
 }

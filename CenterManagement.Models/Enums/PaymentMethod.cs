@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CenterManagement.Models.Entities
+namespace CenterManagement.Models.Enums
 {
-    internal class Roles
+    public enum PaymentMethod
     {
-        
-
+        Cash,
+        BankTransfer,
+        Card
     }
 }

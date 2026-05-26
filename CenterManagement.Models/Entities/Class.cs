@@ -1,37 +1,24 @@
-﻿using System;
+using CenterManagement.Models.Enums;
+using System;
 using System.Collections.Generic;
 
-namespace CenterManagement.DataAccess;
-
-public partial class Class
+namespace CenterManagement.Models.Entities
 {
-    public int Id { get; set; }
+    public class Class : BaseEntity
+    {
+        public int Id { get; set; }
+        public int CourseId { get; set; }
+        public string ClassName { get; set; } = string.Empty;
+        public int MaxStudents { get; set; }
+        public DateOnly StartDate { get; set; }
+        public DateOnly? EndDate { get; set; }
+        public ClassStatus Status { get; set; } = ClassStatus.Upcoming;
 
-    public string ClassName { get; set; } = null!;
-
-    public int CourseId { get; set; }
-
-    public int TeacherId { get; set; }
-
-    public int BranchId { get; set; }
-
-    public int MaxStudents { get; set; }
-
-    public DateOnly StartDate { get; set; }
-
-    public DateOnly? EndDate { get; set; }
-
-    public bool IsActive { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public virtual Branch Branch { get; set; } = null!;
-
-    public virtual ICollection<ClassSchedule> ClassSchedules { get; set; } = new List<ClassSchedule>();
-
-    public virtual ICollection<ClassStudent> ClassStudents { get; set; } = new List<ClassStudent>();
-
-    public virtual Course Course { get; set; } = null!;
-
-    public virtual Teacher Teacher { get; set; } = null!;
+        public Course? Course { get; set; }
+        public ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+        public ICollection<TeacherClassRegistration> TeacherClassRegistrations { get; set; } = new List<TeacherClassRegistration>();
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        public ICollection<ClassTransfer> ClassTransfers { get; set; } = new List<ClassTransfer>();
+        public ICollection<Exam> Exams { get; set; } = new List<Exam>();
+    }
 }
